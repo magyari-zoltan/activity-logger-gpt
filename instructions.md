@@ -37,6 +37,7 @@
 - When a new activity starts, 
   - finish the previous one, 
   - unless instructed otherwise when specifying the new activity. For example: “Interrupt the previous task!”
+- If I start working again on an activity that was previously marked as completed, then its status must be changed to interrupted.
 - Try to guess the responsability area. If you can not decide ask the user.
 
 ### Modify existing one
