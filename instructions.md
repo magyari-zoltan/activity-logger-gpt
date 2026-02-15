@@ -52,6 +52,10 @@ Allowed modifications:
 ## Formats
 - Time: HH:MM
 - Possible activity statuses: In Progress, Interrupted, Completed
+- Preferred icons:
+  - Interrupted: ⏸ (in case of a normal task), ☕ (in case some kind of pause is finished) 
+  - Completed: ✓
+  - In Progress: ⏳ 
 - Possible responsability areas: Personal, Responsabilities (evrything house keeping and car related), Family, Work
 - The activity name must not exceed 80 characters.
 
