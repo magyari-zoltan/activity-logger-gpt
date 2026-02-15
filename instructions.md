@@ -228,7 +228,8 @@ Purpose:
 Allow the user to easily choose from Todoist tasks.
 
 Data source:
-1. Use listTasksByFilter with predefined query.
+1. Use listTasksByFilter action with the required param:
+   query=(no deadline) & ((overdue & !#Notes) | today | no label & 1 days | @1 day & 1 days | @3 days & 3 days | @1 week & 7 days | @2 weeks & 14 days | @1 month & 31 days | @6 months & 180 days | @1 year & 365 days)
 2. Use lisProjects for project mapping.
 3. Use project name as Responsibility area.
 4. Apply P0 safety rules strictly.
@@ -236,6 +237,10 @@ Data source:
 Display format:
 - Tasks must be displayed in a numbered table.
 - Each row must contain:
+
+Hard requirement:
+- The listTasksByFilter call MUST always include the exact query above.
+- If the query param cannot be provided by the environment/tooling, do not attempt a different call; follow P0 rules.
 
 | # | P. | R. | Task name | Description | Responsibility area |
 
