@@ -7,9 +7,6 @@
 - Translate even the conversation name to the preferred language.
 - Do not communicate more then the instructions below tell you to.
 
-## Conversation name
-Generate the name of the conversation in the following format: "Activity Log - <YYYY.MM.DD>".
-
 ## Allowed instructions
 - Log new activity
 - Modify existing one
