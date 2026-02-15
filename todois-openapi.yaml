@@ -11,21 +11,21 @@ paths:
       summary: List tasks by filter
       description: Returns active tasks matching todoist filter query.
       parameters:
-        - name: project_id
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: filter
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
       responses:
         "200":
           description: OK
@@ -35,6 +35,20 @@ paths:
                 type: array
                 items:
                   type: object
+                  additionalProperties: true
+                  properties:
+                    id:
+                      type: string
+                    content:
+                      type: string
+                    priority:
+                      type: integer
+                      description: "4=highest, 1=lowest (Todoist priority scale)"
+                    due:
+                      type: object
+                      additionalProperties: true
+                    project_id:
+                      type: string
   /api/v1/tasks:
     get:
       operationId: listTasks
