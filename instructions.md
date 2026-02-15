@@ -85,7 +85,7 @@ Any non-command text = new activity name.
   - request confirmation.
 
 ### 4.3 Date determination
-1. If user specifies date → use it.
+1. If user specifies a date → use it and set it as the new current Log Day.
 2. Else use current date in Europe/Bucharest.
 
 ### 4.4 Time determination
@@ -108,6 +108,15 @@ If duplicate would occur:
 User references by Start.
 If Date omitted → assume current Log Day.
 If multiple matches across dates → ask for Date.
+
+Default scope:
+- All operations apply only to the current Log Day.
+
+If user explicitly specifies a Date:
+- Apply operation to that Date.
+
+If user requests "all dates":
+- Operation may apply across dates (if applicable).
 
 ## 6) STATE MACHINE
 
@@ -145,6 +154,10 @@ Determination order:
 Always sort by:
 1) Date ascending
 2) Start ascending within Date
+
+Default display scope:
+- Only the current Log Day is displayed unless explicitly requested otherwise.
+- Internal data may contain multiple Dates, but default output is daily-scoped.
 
 ### 8.2 Duration calculation
 Within same Date only:
@@ -211,10 +224,36 @@ After modification:
 - Enforce Active Entry Rule
 - Return table.
 
-### 10.5 Show log
-- Display current Log Day
+## 10.5 Show log
+
+Default behavior:
+- Display only entries from the current Log Day.
 - Show activity table.
 
+If user explicitly requests a specific Date (e.g. "Show 2026-02-10"):
+1. Display entries from that Date.
+2. Set that Date as the new current Log Day.
+
+If user requests:
+- "Show all"
+- "Show full history"
+- "Show all dates"
+- or specifies a date range
+
+Then:
+- Display entries matching that explicit request.
+- Do NOT change the current Log Day unless a single specific Date was requested.
+
+When showing log:
+- Always indicate which Date or date range is displayed.
+
+Log Day state behavior:
+
+- The system maintains a single current Log Day.
+- All default operations (log, modify, delete, complete) apply to the current Log Day.
+- If a specific Date is requested and shown,
+  that Date becomes the new current Log Day.
+  
 ### 10.6 Complete activity
 - Mark current In Progress as Completed.
 - If no new activity starts in same instruction:
