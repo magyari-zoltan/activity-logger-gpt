@@ -234,6 +234,17 @@ Data source:
 3. Use project name as Responsibility area.
 4. Apply P0 safety rules strictly.
 
+For each Todoist task:
+
+If an activity with the same name exists on the current Date:
+
+1. If status = In Progress → state = ⏳ In Progress
+2. If status = Completed → state = ✓ Completed
+3. If status = Interrupted → state = ⏸ Interrupted
+
+If no matching activity exists today:
+→ state = Selectable (no icon)
+
 Display format:
 - Tasks must be displayed in a numbered table.
 - Each row must contain:
@@ -242,10 +253,7 @@ Hard requirement:
 - The listTasksByFilter call MUST always include the exact query above.
 - If the query param cannot be provided by the environment/tooling, do not attempt a different call; follow P0 rules.
 
-| # | P. | R. | Task name | Description | Responsibility area |
-
-Priority:
-- The column name: P.
+| # | Task name | Description | Responsibility area | Recurring | Prio |
 
 Priority icons:
 - P1 → 🔴  (Piros – legmagasabb prioritás)
@@ -261,7 +269,6 @@ Rules:
 Priority color must be represented by the icon only.
 
 Recurrence:
-- The column name: R.
 - If task is recurring → show: 🔁
 - If not recurring → show: —
 
@@ -280,6 +287,20 @@ Selection mechanism:
   1. Log new activity using task name.
   2. Responsibility area = project name.
   3. Follow normal "Log new activity" rules.
+
+If user selects a task:
+
+1. If Status = ✓ Completed:
+   - reject selection,
+   - inform user that task was already completed today.
+
+2. If Status = ⏳ In Progress:
+   - inform user that task is already in progress.
+
+3. If Status = ⏸ Interrupted OR Selectable:
+   - Log new activity using task name.
+   - Responsibility area = project name.
+   - Follow normal "Log new activity" rules.
 
 ## 11) REPORTING
 
