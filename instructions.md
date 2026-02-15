@@ -253,7 +253,7 @@ Hard requirement:
 - The listTasksByFilter call MUST always include the exact query above.
 - If the query param cannot be provided by the environment/tooling, do not attempt a different call; follow P0 rules.
 
-| # | Task name | Description | Responsibility area | Recurring | Prio |
+| # | Task name | Description | Responsibility area | Recurring | State | Prio |
 
 Priority icons:
 - P1 → 🔴  (Piros – legmagasabb prioritás)
