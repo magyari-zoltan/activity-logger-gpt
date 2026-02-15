@@ -295,15 +295,15 @@ Hard requirement:
 | # | Task name | Description | Responsibility area | Recurring | State | Prio |
 
 Priority icons:
-- P1 → 🔴  (Piros – legmagasabb prioritás)
-- P2 → 🟠  (Narancs)
-- P3 → 🔵  (Kék)
-- P4 → ⚪  (Szürke – legalacsonyabb prioritás)
+- P4 → 🔴  (Piros – legmagasabb prioritás)
+- P3 → 🟠  (Narancs)
+- P2 → 🔵  (Kék)
+- P1 → ⚪  (Szürke – legalacsonyabb prioritás)
 
 Rules:
 - Only the colored icon must be displayed (do not show P1/P2 text).
 - Sorting must still be by priority order:
-  P1 → P2 → P3 → P4.
+  P4 → P3 → P2 → P1.
 
 Priority color must be represented by the icon only.
 
