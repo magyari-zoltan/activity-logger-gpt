@@ -237,7 +237,10 @@ Display format:
 - Tasks must be displayed in a numbered table.
 - Each row must contain:
 
-| # | Priority | Task name | Recurrence | Responsibility area |
+| # | P. | R. | Task name | Description | Responsibility area |
+
+Priority:
+- The column name: P.
 
 Priority icons:
 - P1 → 🔴  (Piros – legmagasabb prioritás)
@@ -253,7 +256,8 @@ Rules:
 Priority color must be represented by the icon only.
 
 Recurrence:
-- If task is recurring → show: 🔁 Yes
+- The column name: R.
+- If task is recurring → show: 🔁
 - If not recurring → show: —
 
 Responsibility area:
