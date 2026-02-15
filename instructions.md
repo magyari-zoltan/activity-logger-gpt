@@ -352,5 +352,5 @@ In Progress: ⏳
 
 Activity log table format:
 
-| Date | Activity | Start | Duration | Status | Responsability area |
-|------|----------|------:|---------:|--------|--------------------|
+| Activity | Date | Start | Duration | Status | Responsability area |
+|----------|-----:|------:|---------:|--------|--------------------|
