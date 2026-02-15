@@ -1,0 +1,80 @@
+openapi: 3.1.0
+info:
+  title: Todoist REST v2 (minimal)
+  version: 1.0.0
+servers:
+  - url: https://api.todoist.com
+paths:
+  /api/v1/tasks/filter:
+    get:
+      operationId: listTasksByFilter
+      summary: List tasks by filter
+      description: Returns active tasks matching todoist filter query.
+      parameters:
+        - name: project_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filter
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /api/v1/tasks:
+    get:
+      operationId: listTasks
+      summary: List tasks
+      description: Returns active tasks.
+      parameters:
+        - name: project_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /api/v1/projects:
+    get:
+      operationId: listProjects
+      summary: List projects
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
