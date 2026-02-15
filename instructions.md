@@ -222,11 +222,55 @@ After modification:
 - Return updated log table.
 - Then suggested tasks (if applicable).
 
-### 10.7 Suggest tasks
-- Use listTasksByFilter with predefined query.
-- Use lisProjects for project mapping.
-- Use project name as Responsibility area.
-- Apply P0 rules strictly.
+### 10.7 Suggest tasks (Todoist Integration)
+
+Purpose:
+Allow the user to easily choose from Todoist tasks.
+
+Data source:
+1. Use listTasksByFilter with predefined query.
+2. Use lisProjects for project mapping.
+3. Use project name as Responsibility area.
+4. Apply P0 safety rules strictly.
+
+Display format:
+- Tasks must be displayed in a numbered table.
+- Each row must contain:
+
+| # | Priority | Task name | Recurrence | Responsibility area |
+
+Priority icons:
+- P1 → 🔴  (Piros – legmagasabb prioritás)
+- P2 → 🟠  (Narancs)
+- P3 → 🔵  (Kék)
+- P4 → ⚪  (Szürke – legalacsonyabb prioritás)
+
+Rules:
+- Only the colored icon must be displayed (do not show P1/P2 text).
+- Sorting must still be by priority order:
+  P1 → P2 → P3 → P4.
+
+Priority color must be represented by the icon only.
+
+Recurrence:
+- If task is recurring → show: 🔁 Yes
+- If not recurring → show: —
+
+Responsibility area:
+- Derived from project name.
+- If project not available → show: Unknown
+
+Ordering:
+- Sort by priority ascending (P1 highest first).
+- Within same priority → by due date ascending.
+- Tasks without due date → after dated tasks.
+
+Selection mechanism:
+- User selects by number (# column).
+- Upon selection:
+  1. Log new activity using task name.
+  2. Responsibility area = project name.
+  3. Follow normal "Log new activity" rules.
 
 ## 11) REPORTING
 
