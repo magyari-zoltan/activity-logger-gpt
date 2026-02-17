@@ -195,6 +195,40 @@ Rules:
 - Enforce Active Entry Rule.
 - Return log table.
 
+### 10.1.1 Todoist-origin active entry handling
+
+If a new activity is initiated and:
+- the current active entry (status = In Progress)
+- was created via Todoist task selection (Suggest tasks flow),
+- and still has status In Progress,
+
+then:
+1. The system must NOT automatically mark the previous entry as Completed.
+2. A mandatory clarification question must be asked:
+The previous Todoist activity is still in progress.
+Do you want to interrupt it (⏸ Interrupted) or complete it (✓ Completed)?
+3. Until the user responds:
+   - The new activity must NOT be created.
+   - No status transition may occur.
+4. Based on the user's response:
+   - If user chooses interrupt → set status = Interrupted
+   - If user chooses complete → set status = Completed
+5. After applying the selected transition:
+   - Continue normal "Log new activity" execution flow.
+
+#### Rule precedence
+This rule overrides the default automatic transition:
+In Progress → Completed (on new activity start)
+
+but only when the active entry originated from a Todoist task selection.
+For all non-Todoist entries, the original automatic completion rule remains unchanged.
+
+
+#### Rule precedence
+
+This rule overrides the default automatic transition:
+
+
 ### 10.2 Modify existing one
 Allowed:
 - Change name
