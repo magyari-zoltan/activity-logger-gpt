@@ -50,10 +50,31 @@ Content expansion is prohibited.
 
 ## 1.2 title generation
 
-- Generate a concise and descriptive title.
-- 8–12 words maximum.
-- Specific and meaningful.
-- No generic phrasing.
+<!--
+The title must reflect the core assertion or decision,
+not the general topic of the note.
+-->
+
+- Generate a new title that more precisely reflects the central claim,
+  decision, insight, or conclusion of the note.
+- The title must be 6–8 words maximum.
+- The title must not be generic or abstract.
+- Avoid topic labels (e.g., “On Productivity”, “Marketing Strategy Thoughts”).
+- The title must highlight the main decision, realization, or key insight,
+  not the subject area.
+- Prefer declarative phrasing when possible.
+- If the note contains a clear conclusion, the title should reflect that conclusion.
+
+Examples:
+
+Weak:
+- “Project Planning Notes”
+- “Thoughts on Communication”
+
+Strong:
+- “Short Iterations Reduce Planning Errors”
+- “Client Feedback Must Precede Final Release”
+- “Daily Reflection Improves Strategic Clarity”
 
 ---
 
