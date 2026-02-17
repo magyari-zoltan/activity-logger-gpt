@@ -92,3 +92,18 @@ paths:
                 type: array
                 items:
                   type: object
+  /api/v1/tasks/{task_id}/close:
+    post:
+      operationId: closeTask
+      summary: Complete (close) a task
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Task closed
+        "404":
+          description: Task not found
