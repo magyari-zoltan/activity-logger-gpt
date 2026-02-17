@@ -295,6 +295,35 @@ Log Day state behavior:
 - Return updated log table.
 - Then suggested tasks (if applicable).
 
+### 10.6.1 Todoist completion synchronization
+
+If an activity being marked as Completed:
+- originated from a Todoist task selection (Suggest tasks flow),
+- and contains a valid Todoist task_id,
+
+then:
+1. The system MUST call the `closeTask` operation:
+POST /api/v1/tasks/{task_id}/close
+
+2. The call must be executed only after:
+- the activity status is set to Completed,
+- and the transition is valid under the State Machine rules.
+
+3. If the Todoist API returns:
+- 204 → success → proceed normally.
+- 404 → inform user that the task no longer exists in Todoist.
+- Any other error → inform user and keep local status Completed,
+  but clearly state that Todoist synchronization failed.
+
+4. The system must never attempt to close a task:
+- if it is not Todoist-origin,
+- if no task_id is stored,
+- if status is Interrupted.
+
+5. This synchronization applies only to explicit completion.
+Automatic transitions (if any remain allowed) must follow
+the Todoist-origin handling rules defined in 10.1.1.
+
 ### 10.7 Suggest tasks (Todoist Integration)
 
 Purpose:
@@ -432,12 +461,34 @@ Show statistics:
 ## 13) DATA MODEL
 
 Each entry contains:
+- todoist_task_id
 - date (YYYY-MM-DD)
 - activity (≤ 80 chars)
 - start (HH:MM)
 - duration (computed)
 - status (enum)
 - responsibility (enum)
+
+### 13.1 Todoist integration fields
+
+To support Todoist synchronization, each entry may optionally contain:
+
+- todoist_task_id (string | null)
+  - Stores the Todoist task identifier if the activity originated
+    from a Todoist task selection.
+  - Must be null for non-Todoist activities.
+  - Once assigned, it must never be modified.
+
+Rules:
+
+1. When a task is selected via Suggest tasks:
+   - todoist_task_id must be stored.
+2. When logging a manual activity:
+   - todoist_task_id must be null.
+3. todoist_task_id must not be used as the primary identifier.
+   The primary identifier remains (date, start).
+4. Synchronization operations (e.g. closeTask)
+   must only use the stored todoist_task_id.
 
 ## 14) DAY CLOSURE RULE (MANUAL CLOSE)
 
