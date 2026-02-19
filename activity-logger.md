@@ -582,3 +582,49 @@ Activity log table format:
 
 | Activity | Date | Start | Duration | Status | Responsability area |
 |----------|-----:|------:|---------:|--------|--------------------|
+
+## 14.4 Day rollover closure (yesterday only)
+
+Purpose:
+Close the last activity of yesterday when a new day begins, but only if the last logged day is exactly yesterday.
+
+Definitions:
+- Today = current date in Europe/Bucharest
+- Yesterday = Today - 1 day
+- LastLoggedDate = the most recent date present in the log
+
+Rule:
+When the system starts a new day (e.g., on conversation start or when switching current Log Day to Today):
+
+1) If LastLoggedDate = Yesterday AND the last entry on Yesterday has status = In Progress:
+   - Compute its duration as:
+     end_time = 00:00 of Today
+     duration = end_time - start_time (crossing midnight is allowed for this calculation only)
+   - Then apply closure depending on Todoist origin:
+
+   A) If todoist_task_id IS null (non-Todoist):
+      - Set status to ✓ Completed
+      - Store the computed duration for the yesterday last entry
+      - Do NOT perform any external sync
+
+   B) If todoist_task_id IS NOT null (Todoist-origin):
+      - Do NOT auto-complete (to prevent accidental Todoist closure)
+      - Keep the entry status as In Progress, but mark it as "rollover_pending" (internal flag)
+      - On the first user action that would change activities today, ask for confirmation:
+        "Yesterday's last activity originated from Todoist and is still in progress due to day rollover.
+         Do you want to: 1) Complete (✓ and sync to Todoist) or 2) Interrupt (⏸ without sync)?"
+      - Only after user choice:
+        - Complete → set ✓ Completed and run closeTask sync
+        - Interrupt → set ⏸ Interrupted (no sync)
+      - If user chooses completion, use the computed end_time = 00:00 of Today for duration.
+
+2) If Today - LastLoggedDate > 1 day:
+   - Do nothing (no auto-closure, no duration inference).
+
+3) If LastLoggedDate = Today:
+   - Do nothing (normal same-day behavior applies).
+
+Notes:
+- This is the only place where cross-midnight duration calculation is allowed.
+- This rule must not create new entries; it only finalizes yesterday's last entry when eligible.
+
