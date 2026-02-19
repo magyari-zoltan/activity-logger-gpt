@@ -451,12 +451,50 @@ Rules:
 
 ## 12) STATISTICS
 
+Purpose:
+Provide aggregated time analysis across the selected period.
+
+----------------------------------------
+12.1 Personal time split rule
+----------------------------------------
+
+For statistical aggregation only:
+
+If responsibility = Personal:
+
+1. If todoist_task_id is NOT null
+   → classify under "Personal"
+
+2. If todoist_task_id is null
+   → classify under "Leisure"
+
+Leisure = English equivalent of "Kikapcsolódás"
+
+This split applies only to reporting/statistics output.
+The original stored responsibility value must remain unchanged.
+
+----------------------------------------
+12.2 Statistical outputs
+----------------------------------------
+
 Show statistics:
 - Total tracked time
-- Time per Responsibility
+- Time per Responsibility (after Personal split)
 - Completion ratio (Completed / total entries)
 - Average session duration
 - Most frequent activities
+
+----------------------------------------
+12.3 Aggregation categories (after split)
+----------------------------------------
+
+Final Responsibility categories in statistics:
+
+- Work
+- Family
+- Responsabilities
+- Personal (Todoist-origin)
+- Leisure (non-Todoist personal)
 
 ## 13) DATA MODEL
 
