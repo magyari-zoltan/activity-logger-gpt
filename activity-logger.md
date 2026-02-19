@@ -195,38 +195,55 @@ Rules:
 - Enforce Active Entry Rule.
 - Return log table.
 
-### 10.1.1 Todoist-origin active entry handling
+### 10.1.1 Todoist-origin completion safeguard
+
+Purpose:
+Prevent accidental completion of Todoist tasks when starting a new activity.
+
+Rule:
 
 If a new activity is initiated and:
+
 - the current active entry (status = In Progress)
-- was created via Todoist task selection (Suggest tasks flow),
-- and still has status In Progress,
+- has a non-null todoist_task_id
+- and originated from a Todoist task selection,
 
 then:
-1. The system must NOT automatically mark the previous entry as Completed.
-2. A mandatory clarification question must be asked:
-The previous Todoist activity is still in progress.
-Do you want to interrupt it (⏸ Interrupted) or complete it (✓ Completed)?
+
+1. The system MUST NOT automatically mark it as Completed.
+2. A mandatory confirmation question must be asked:
+
+   "The previous activity originates from Todoist.
+   Do you want to:
+   1) Complete it (✓ Completed and sync with Todoist),
+   2) Interrupt it (⏸ Interrupted without closing in Todoist)?"
+
 3. Until the user responds:
    - The new activity must NOT be created.
    - No status transition may occur.
-4. Based on the user's response:
-   - If user chooses interrupt → set status = Interrupted
-   - If user chooses complete → set status = Completed
-5. After applying the selected transition:
-   - Continue normal "Log new activity" execution flow.
 
-#### Rule precedence
-This rule overrides the default automatic transition:
-In Progress → Completed (on new activity start)
+4. If user chooses:
+   - Complete → set status = Completed → trigger Todoist closeTask sync.
+   - Interrupt → set status = Interrupted → do NOT sync with Todoist.
 
-but only when the active entry originated from a Todoist task selection.
-For all non-Todoist entries, the original automatic completion rule remains unchanged.
+5. After applying the chosen transition:
+   - Continue normal "Log new activity" flow.
 
+--------------------------------------------------
+Non-Todoist behavior
+--------------------------------------------------
 
-#### Rule precedence
+If the active entry:
 
-This rule overrides the default automatic transition:
+- has todoist_task_id = null,
+
+then:
+
+- Automatically transition:
+  In Progress → Completed
+- No confirmation required.
+- No external synchronization occurs.
+- Proceed immediately with new activity creation.
 
 ### 10.2 Modify existing one
 Allowed:
