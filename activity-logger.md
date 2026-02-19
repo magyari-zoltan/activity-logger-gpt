@@ -228,7 +228,6 @@ For all non-Todoist entries, the original automatic completion rule remains unch
 
 This rule overrides the default automatic transition:
 
-
 ### 10.2 Modify existing one
 Allowed:
 - Change name
@@ -416,10 +415,20 @@ Display:
 - Interrupted count
 - Responsibility area chart
 
+Personal category must be split according to Section 12.1 before aggregation.
+Charts and totals must reflect:
+- Personal (Todoist)
+- Leisure (non-Todoist)
+
 ### 11.2 Show monthly report
 Period: current calendar month.
 
 Same structure as weekly.
+
+Personal category must be split according to Section 12.1 before aggregation.
+Charts and totals must reflect:
+- Personal (Todoist)
+- Leisure (non-Todoist)
 
 ### 11.3 Responsibility area chart
 
